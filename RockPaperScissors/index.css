@@ -1,0 +1,56 @@
+.game_title {
+	text-align: center;
+	font-family: "Black Han Sans", sans-serif;
+	font-size: 45px;
+	font-weight: 400;
+}
+.player {
+	float: left;
+	width: 50%;
+	text-align: center;
+}
+
+.player > h3 {
+	font-family: "Do Hyeon", sans-serif;
+}
+
+.player > img {
+	width: 100px;
+	height: 140px;
+}
+
+.player > button {
+	display: block;
+	margin: auto;
+	margin-top: 25px;
+
+	font-family: "Do Hyeon", sans-serif;
+	font-size: 16px;
+
+	width: 80px;
+	border-radius: 5px;
+}
+
+.player > button:hover {
+	border-color: gray;
+	background-color: white;
+}
+
+.restart {
+	float: left;
+	margin-top: 50px;
+	margin-left: calc(50% - 40px);
+	font-size: 15px;
+}
+
+.restart > button {
+	width: 100px;
+	font-family: "Do Hyeon", sans-serif;
+	font-size: 18px;
+	border-radius: 5px;
+}
+
+.restart > button:hover {
+	border-color: gray;
+	background-color: white;
+}
