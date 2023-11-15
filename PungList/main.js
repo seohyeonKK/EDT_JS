@@ -56,8 +56,9 @@ function createPung(name, sec){
   const newPung = new Pung(name, sec, true);
   pungList.push(newPung);
   draw();
-  if (timerId === null)
+  if (timerId === null){
     timerId = startInterval();
+  }
 }
 
 function multiply(){

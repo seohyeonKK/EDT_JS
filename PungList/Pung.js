@@ -57,10 +57,9 @@ export class Pung {
   }
 
   removeList() {
-    if (this.list !== null){
+    if (this.list.parentElement !== null){
       this.stop();
-      if (this.list.parentElement !== null)
-        this.list.parentElement.removeChild(this.list);
+      this.list.parentElement.removeChild(this.list);
       this.list = null;
     }
   }
