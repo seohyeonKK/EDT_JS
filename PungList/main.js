@@ -6,6 +6,7 @@ let timerId = null;
 
 const startInterval = () => {
   return setInterval(()=>{
+    sort();
     draw();
     if (pungList.length <= 0){
       clearInterval(timerId);
@@ -37,18 +38,22 @@ function getInputValue(){
   return inputValue;
 }
 
-function draw() {
+function sort(){
   pungList = pungList.filter((pung) => pung.sec > 0 && pung.list !== null)
-            .sort((a, b) => a.sec - b.sec);
+  .sort((a, b) => a.sec - b.sec);
+}
 
+function getAverage() {
   let sum = 0;
-  pungList.forEach(pung => {
-    sum += pung.sec;  
-  });
+  pungList.forEach(pung => { sum += pung.sec; });
 
-  const average = sum / pungList.length; 
-  
-  document.getElementById('total').innerHTML = `총: ${pungList.length}건 평균 남은시간: ${isNaN(average)? 0 : average.toFixed(1)}초`
+  const average = sum / pungList.length;
+
+  return isNaN(average) ? 0 : average.toFixed(1);
+}
+
+function draw() {
+  document.getElementById('total').innerHTML = `총: ${pungList.length}건 평균 남은시간: ${getAverage()}초`
   allUpdate((pung)=> pung.addList());
 }
 
