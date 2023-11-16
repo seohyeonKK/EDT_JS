@@ -2,9 +2,6 @@ import { Chef } from "./Chef.js";
 import { Food } from "./Food.js";
 import { Server } from "./Server.js";
 
-export const soondae = "순대국";
-export const hangover = "해장국";
-
 let chefs = [new Chef("장금이"), new Chef("백주부")];
 let servers = [new Server(1000, "수지"), new Server(2000, "철수")];
 
