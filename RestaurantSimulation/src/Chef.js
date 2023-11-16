@@ -1,5 +1,28 @@
 export class Chef {
 	status = "대기중";
+	name = null;
+	list = null;
+
+	setStatus(status) {
+		this.status = status;
+	}
+	getStatus() {
+		return this.status;
+	}
+
+	setName(name) {
+		this.name = name;
+	}
+	getName() {
+		return this.name;
+	}
+
+	setList(list) {
+		this.list = list;
+	}
+	getList() {
+		return this.list;
+	}
 
 	constructor(name) {
 		this.name = name;
@@ -7,14 +30,15 @@ export class Chef {
 	}
 
 	cooking(food) {
-		return new Promise((resolve, reject) => {
+		return new Promise((resolve) => {
 			this.status = "요리중";
 			this.updateChefList(food);
+
 			setTimeout(() => {
 				this.status = "대기중";
 				this.updateChefList(null);
 				resolve(food);
-			}, food.time);
+			}, food.getTime());
 		});
 	}
 
@@ -34,7 +58,7 @@ export class Chef {
 		if (this.status === "대기중") {
 			this.list.textContent = `${this.name} 대기중`;
 		} else {
-			this.list.textContent = `${this.name} 주문${food.no} ${food.name} 요리중`;
+			this.list.textContent = `${this.name} 주문${food.getNo()} ${food.getName()} 요리중`;
 		}
 	}
 }

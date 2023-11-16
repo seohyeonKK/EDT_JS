@@ -1,6 +1,7 @@
 import { Chef } from "./Chef.js";
 import { Food } from "./Food.js";
 import { Server } from "./Server.js";
+import { hangover, soondae } from "./constant.js";
 
 let chefs = [new Chef("장금이"), new Chef("백주부")];
 let servers = [new Server(1000, "수지"), new Server(2000, "철수")];
@@ -35,7 +36,8 @@ async function cook() {
 async function findAvailable(staffs) {
 	return new Promise((resolve) => {
 		const timerId = setInterval(() => {
-			const availableStaff = staffs.find((staff) => staff.status === "대기중");
+			const availableStaff = staffs.find((staff) => staff.getStatus() === "대기중");
+
 			if (availableStaff) {
 				clearInterval(timerId);
 				resolve(availableStaff);
@@ -53,6 +55,6 @@ async function serve() {
 function updateOrders() {
 	const pendingOrdersElement = document.getElementById("order");
 	pendingOrdersElement.innerHTML = orderList
-		.map((order) => `<li>주문${order.no} : ${order.name}</li>`)
+		.map((order) => `<li>주문${order.getNo()} : ${order.getName()}</li>`)
 		.join("");
 }

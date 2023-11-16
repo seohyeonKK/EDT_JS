@@ -3,10 +3,34 @@ import { soondae } from "./constant.js";
 let orderNo = 1;
 
 export class Food {
+	no = 0;
+	name = null;
+	time = 0;
+
+	setNo(no) {
+		this.no = no;
+	}
+	getNo() {
+		return this.no;
+	}
+
+	setName(name) {
+		this.name = name;
+	}
+	getName() {
+		return this.name;
+	}
+
+	setTime(time) {
+		this.time = time;
+	}
+	getTime() {
+		return this.time;
+	}
+
 	constructor(name) {
 		this.name = name;
-		if (name === soondae) this.time = 1000;
-		else this.time = 2000;
+		this.time = name === soondae ? 1000 : 2000;
 		this.no = orderNo++;
 	}
 }
