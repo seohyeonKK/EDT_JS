@@ -1,0 +1,32 @@
+* {
+	-ms-user-select: none;
+	-moz-user-select: -moz-none;
+	-webkit-user-select: none;
+	-khtml-user-select: none;
+	user-select: none;
+}
+
+.sticker {
+	position: absolute;
+	text-align: center;
+	width: 200px;
+	padding: 20px;
+}
+
+.sticker > button {
+	margin: 5px;
+}
+.memo {
+	position: relative;
+	margin: 10px;
+	background-color: aliceblue;
+	opacity: 0.9;
+	border: 1px;
+	border-radius: 5px;
+	height: 35px;
+	width: 180px;
+	line-height: 35px;
+}
+.memo > button {
+	margin-left: 10px;
+}
