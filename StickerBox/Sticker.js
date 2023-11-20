@@ -12,7 +12,6 @@ export class Sticker {
 		this.id = no++;
 		this.element = null;
 		this.memoList = [];
-		this.memoId = 0;
 		this.createStickerElement();
 	}
 
@@ -67,11 +66,10 @@ export class Sticker {
 	addMemoByButton() {
 		const memoEl = document.createElement("div");
 		memoEl.className = "memo";
-		memoEl.id = "memo" + ++this.memoId;
-		memoEl.style.top = 100 + 35 * this.memoId;
+		memoEl.id = "memo" + (this.memoList.length + 1);
 		// 텍스트
 		const memoText = document.createElement("span");
-		memoText.innerText = "sampel Text" + this.memoId;
+		memoText.innerText = "sampel Text" + (this.memoList.length + 1);
 		memoEl.appendChild(memoText);
 
 		// 삭제 버튼
@@ -88,7 +86,7 @@ export class Sticker {
 	addMemoByIndex(element, index) {
 		const memoEl = document.createElement("div");
 		memoEl.className = "memo";
-		memoEl.id = "memo" + ++this.memoId;
+		memoEl.id = "memo" + (this.memoList.length + 1);
 
 		// 텍스트
 		const memoText = document.createElement("span");
@@ -133,6 +131,9 @@ export class Sticker {
 	}
 
 	renderMemos() {
-		this.memoList.forEach((memo) => this.element.appendChild(memo));
+		this.memoList.forEach((memo, index) => {
+			memo.id = index;
+			this.element.appendChild(memo);
+		});
 	}
 }
