@@ -13,6 +13,13 @@
 	padding: 20px;
 }
 
+.sticker > h1 {
+	text-align: left;
+	font-size: 25px;
+	margin: 0;
+	margin-left: 15px;
+}
+
 .sticker > button {
 	margin: 5px;
 }

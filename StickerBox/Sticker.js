@@ -39,6 +39,10 @@ export class Sticker {
 			${150 + Math.random() * 50},
 			${150 + Math.random() * 50},
 			${150 + Math.random() * 50}, 0.9)`;
+		//sticker 제목
+		const stickerTitle = document.createElement("h1");
+		stickerTitle.textContent = "Sticker" + this.id;
+		stickerEl.appendChild(stickerTitle);
 
 		// 항목추가 버튼
 		const addMemoButton = document.createElement("button");
@@ -99,6 +103,7 @@ export class Sticker {
 
 		makeMemoDraggable(memoEl, this);
 
+		if (index < 0) index = 0;
 		this.memoList.splice(index, 0, memoEl);
 		this.renderMemos();
 	}

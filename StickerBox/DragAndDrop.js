@@ -76,9 +76,8 @@ export function makeMemoDraggable(element, parent) {
 			const newParentSticker = getNewParentSticker(elementLeft, elementTop);
 			if (newParentSticker !== undefined && parseInt(newParentSticker.id) !== parent.id) {
 				parent.removeMemo(element);
-				const index = parseInt(
-					(elementTop - parent.element.getBoundingClientRect().top) / 45
-				);
+				const index =
+					parseInt((elementTop - parent.element.getBoundingClientRect().top) / 45) - 1;
 				getStickerById(parseInt(newParentSticker.id)).addMemoByIndex(element, index);
 			} else {
 				element.style.position = "relative";
