@@ -36,15 +36,17 @@ export function makeMemoDraggable(element, parent) {
 
 		event.stopPropagation();
 
-		let shiftX = event.clientX - element.getBoundingClientRect().left;
-		let shiftY = event.clientY - element.getBoundingClientRect().top;
+		let shiftX = event.pageX - element.getBoundingClientRect().left;
+		let shiftY = event.pageY - element.getBoundingClientRect().top;
 
 		// 누르는 순간 같은 위치에 빈 memo 그려줌
 		const cloneMemo = element.cloneNode(false);
 		cloneMemo.style.backgroundColor = "gray";
-		parent.element.insertBefore(cloneMemo, element);
 		element.style.position = "fixed";
-		onMouseMove(event);
+		element.style.left = event.pageX - shiftX - 10 + "px";
+		element.style.top = event.pageY - shiftY - 10 + "px";
+		element.style.transform = "rotate(-2deg)";
+		parent.element.insertBefore(cloneMemo, element);
 
 		function onMouseMove(event) {
 			element.style.left = event.pageX - shiftX + "px";
@@ -83,6 +85,7 @@ export function makeMemoDraggable(element, parent) {
 				element.style.position = "relative";
 				element.style.left = left + "px";
 				element.style.top = top + "px";
+				element.style.transform = null;
 			}
 		}
 
