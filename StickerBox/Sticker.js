@@ -6,7 +6,6 @@ export class Sticker {
 	id = 0;
 	element = null;
 	memoList = [];
-	memoId = 0;
 
 	constructor() {
 		this.id = no++;
@@ -57,19 +56,18 @@ export class Sticker {
 
 		// 드래그 가능하도록 이벤트 등록
 		makeStickerDraggable(stickerEl);
-
-		this.element = stickerEl;
 		document.body.appendChild(stickerEl);
+		this.element = stickerEl;
 	}
 
-	// 항목 추가
-	addMemoByButton() {
+	createMemoElement(text) {
 		const memoEl = document.createElement("div");
 		memoEl.className = "memo";
 		memoEl.id = "memo" + (this.memoList.length + 1);
 		// 텍스트
 		const memoText = document.createElement("span");
-		memoText.innerText = "sampel Text" + (this.memoList.length + 1);
+		if (text === null) memoText.innerText = "sampel Text" + (this.memoList.length + 1);
+		else memoText.innerText = text;
 		memoEl.appendChild(memoText);
 
 		// 삭제 버튼
@@ -79,37 +77,22 @@ export class Sticker {
 		memoEl.appendChild(memoRemoveButton);
 
 		makeMemoDraggable(memoEl, this);
+		return memoEl;
+	}
+	// 항목 추가
+	addMemoByButton() {
+		const memoEl = this.createMemoElement(null);
+
 		this.memoList.push(memoEl);
 		this.renderMemos();
 	}
 
 	addMemoByIndex(element, index) {
-		const memoEl = document.createElement("div");
-		memoEl.className = "memo";
-		memoEl.id = "memo" + (this.memoList.length + 1);
-
-		// 텍스트
-		const memoText = document.createElement("span");
-		memoText.innerText = element.getElementsByTagName("span")[0].innerText;
-		memoEl.appendChild(memoText);
-
-		// 삭제 버튼
-		const memoRemoveButton = document.createElement("button");
-		memoRemoveButton.className = "delete-button";
-		memoRemoveButton.textContent = "삭제";
-		memoEl.appendChild(memoRemoveButton);
-
-		// 삭제 이벤트 위임
-		memoEl.addEventListener("click", (event) => {
-			if (event.target.tagName === "BUTTON") {
-				this.removeMemoByButton(event);
-			}
-		});
-
-		makeMemoDraggable(memoEl, this);
+		const elementText = element.getElementsByTagName("span")[0].innerText;
+		const newMemoElement = this.createMemoElement(elementText);
 
 		if (index < 0) index = 0;
-		this.memoList.splice(index, 0, memoEl);
+		this.memoList.splice(index, 0, newMemoElement);
 		this.renderMemos();
 	}
 
@@ -132,7 +115,7 @@ export class Sticker {
 
 	renderMemos() {
 		this.memoList.forEach((memo, index) => {
-			memo.id = index;
+			memo.id = "memo" + index;
 			this.element.appendChild(memo);
 		});
 	}
