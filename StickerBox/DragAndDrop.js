@@ -2,7 +2,9 @@ import { getStickerById } from "./main.js";
 
 export function makeStickerDraggable(element) {
 	element.onmousedown = function (event) {
+		// 가장 위로 올려줌
 		document.body.appendChild(element);
+
 		let shiftX = event.clientX - element.getBoundingClientRect().left;
 		let shiftY = event.clientY - element.getBoundingClientRect().top;
 
@@ -17,7 +19,6 @@ export function makeStickerDraggable(element) {
 		function onMouseUp() {
 			document.removeEventListener("mousemove", onMouseMove);
 			document.removeEventListener("mouseup", onMouseUp);
-
 			element.onmousemove = null;
 			element.onmouseup = null;
 		}
@@ -38,9 +39,9 @@ export function makeMemoDraggable(element, parent) {
 		let shiftX = event.clientX - element.getBoundingClientRect().left;
 		let shiftY = event.clientY - element.getBoundingClientRect().top;
 
-		/* 누르는 순간 같은 위치에 빈 memo 그려줌 */
+		// 누르는 순간 같은 위치에 빈 memo 그려줌
 		const cloneMemo = element.cloneNode(false);
-		cloneMemo.style.backgroundColor = "#F65CD2";
+		cloneMemo.style.backgroundColor = "gray";
 		parent.element.insertBefore(cloneMemo, element);
 		element.style.position = "fixed";
 		onMouseMove(event);
@@ -50,7 +51,7 @@ export function makeMemoDraggable(element, parent) {
 			element.style.top = event.pageY - shiftY + "px";
 		}
 
-		/* parent에 대해서 mouseLeave되면 빈 memo 삭제 */
+		// parent에 대해서 mouseLeave되면 빈 memo 삭제
 		parent.element.addEventListener("mouseleave", removeCloneMemo);
 		function removeCloneMemo() {
 			if (cloneMemo !== undefined) cloneMemo.remove();
@@ -66,15 +67,18 @@ export function makeMemoDraggable(element, parent) {
 		document.addEventListener("mouseup", onMouseUp);
 
 		function onMouseUp() {
-			const currentRect = element.getBoundingClientRect();
 			removeCloneMemo();
 			document.removeEventListener("mousemove", onMouseMove);
 			document.removeEventListener("mouseup", onMouseUp);
 
-			const newParentSticker = getNewParentSticker(currentRect.left, currentRect.top);
+			const elementLeft = parseInt(element.style.left);
+			const elementTop = parseInt(element.style.top);
+			const newParentSticker = getNewParentSticker(elementLeft, elementTop);
 			if (newParentSticker !== undefined && parseInt(newParentSticker.id) !== parent.id) {
 				parent.removeMemo(element);
-				const index = parseInt((currentRect.top - 72) / 55);
+				const index = parseInt(
+					(elementTop - parent.element.getBoundingClientRect().top) / 45
+				);
 				getStickerById(parseInt(newParentSticker.id)).addMemoByIndex(element, index);
 			} else {
 				element.style.position = "relative";
