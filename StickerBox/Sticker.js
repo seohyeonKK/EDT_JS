@@ -97,9 +97,16 @@ export class Sticker {
 
 		// 삭제 버튼
 		const memoRemoveButton = document.createElement("button");
+		memoRemoveButton.className = "delete-button";
 		memoRemoveButton.textContent = "삭제";
-		memoRemoveButton.onmouseup = (event) => this.removeMemoByButton(event);
 		memoEl.appendChild(memoRemoveButton);
+
+		// 삭제 이벤트 위임
+		memoEl.addEventListener("click", (event) => {
+			if (event.target.tagName === "BUTTON") {
+				this.removeMemoByButton(event);
+			}
+		});
 
 		makeMemoDraggable(memoEl, this);
 
